@@ -11,7 +11,6 @@ const sql = neon(process.env.DATABASE_URL);
 
 app.get("/health", async (req, res) => {
   try {
-
     const result = await sql`
       SELECT NOW() as time
     `;
@@ -22,26 +21,16 @@ app.get("/health", async (req, res) => {
       db: "connected",
       time: result[0].time
     });
-
   } catch (err) {
-
     res.status(500).json({
       ok: false,
       error: err.message
     });
-
   }
 });
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Poseidon API running on ${PORT}`);
-});
 app.get("/neighborhoods", async (req, res) => {
-
   try {
-
     const rows = await sql`
       SELECT *
       FROM neighborhood_stats
@@ -50,13 +39,16 @@ app.get("/neighborhoods", async (req, res) => {
     `;
 
     res.json(rows);
-
   } catch (err) {
-
     res.status(500).json({
+      ok: false,
       error: err.message
     });
-
   }
+});
 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Poseidon API running on ${PORT}`);
 });
