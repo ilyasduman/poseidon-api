@@ -34,7 +34,7 @@ app.get("/neighborhoods", async (req, res) => {
     const rows = await sql`
       SELECT *
       FROM neighborhood_stats
-      ORDER BY "Şehir", "İlçe", "Mahalle"
+      ORDER BY city, district, neighborhood
       LIMIT 50
     `;
 
