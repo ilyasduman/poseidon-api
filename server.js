@@ -38,3 +38,25 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Poseidon API running on ${PORT}`);
 });
+app.get("/neighborhoods", async (req, res) => {
+
+  try {
+
+    const rows = await sql`
+      SELECT *
+      FROM neighborhood_stats
+      ORDER BY city, district, neighborhood
+      LIMIT 50
+    `;
+
+    res.json(rows);
+
+  } catch (err) {
+
+    res.status(500).json({
+      error: err.message
+    });
+
+  }
+
+});
