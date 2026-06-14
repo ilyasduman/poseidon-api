@@ -47,6 +47,28 @@ app.get("/neighborhoods", async (req, res) => {
   }
 });
 
+app.get("/neighborhood/:city/:district/:neighborhood", async (req, res) => {
+  try {
+    const { city, district, neighborhood } = req.params;
+
+    const rows = await sql`
+      SELECT *
+      FROM neighborhood_stats
+      WHERE city = ${city}
+      AND district = ${district}
+      AND neighborhood = ${neighborhood}
+      LIMIT 1
+    `;
+
+    res.json(rows[0] || null);
+  } catch (err) {
+    res.status(500).json({
+      ok: false,
+      error: err.message
+    });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
