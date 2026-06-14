@@ -46,3 +46,9 @@ app.get("/neighborhoods", async (req, res) => {
     });
   }
 });
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Poseidon API running on ${PORT}`);
+});
