@@ -34,7 +34,7 @@ app.get("/neighborhoods", async (req, res) => {
     const rows = await sql`
       SELECT *
       FROM neighborhood_stats
-      ORDER BY city, district, neighborhood
+      ORDER BY "Şehir", "İlçe", "Mahalle"
       LIMIT 50
     `;
 
@@ -45,10 +45,4 @@ app.get("/neighborhoods", async (req, res) => {
       error: err.message
     });
   }
-});
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Poseidon API running on ${PORT}`);
 });
